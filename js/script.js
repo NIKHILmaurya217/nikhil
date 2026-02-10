@@ -1,4 +1,5 @@
 // Smooth Scrolling for Navigation Links
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -14,6 +15,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Scroll Reveal Animation
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -78,7 +80,7 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Typing Effect for Hero Section (Optional)
+// Typing Effect for Hero Section 
 function typeWriter(element, text, speed = 50) {
     let i = 0;
     element.textContent = '';
