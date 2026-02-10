@@ -1,765 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nikhil's Portfolio</title>
-
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
-
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="Google Sheet.css">
-
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nikhil Kumar Maurya - Full-Stack Web Developer & CSE (AI) Student specializing in React, Next.js, and Node.js">
+    <meta name="keywords" content="Full-Stack Developer, Web Developer, React, Next.js, Python, JavaScript, AI">
+    <meta name="author" content="Nikhil Kumar Maurya">
+    <title>Nikhil Kumar Maurya - Full-Stack Developer</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+    <!-- Animated Background -->
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-  <!--
-    - #MAIN
-  -->
-
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Nikhil Maurya" width="80">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Nikhil Maurya">Nikhil Maurya</h1>
-
-          <p class="title">Web developer</p>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">NKM</a>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#hackathons">Hackathons</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:nikhilmaurya217@gmail.com" class="contact-link">nikhilmaurya217@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="" class="contact-link">NOT AVAILABLE</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="2005-05-20">May 20, 2005</time>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Sultanpur, Uttar Pradesh, INDIA</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://github.com/NIKHILmaurya217" class="social-link">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://twitter.com/nikhilmaurya217?t=U3YMKoEeydLZGEMjoeN74A&s=09" target=_blank class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://www.instagram.com/nikhilmaurya_141/" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-		  
-		   <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
-		
-	  
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link></button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            Myself Nikhil Maurya. A fresher web developer.
-			
-			Currently I'm a student of class XII. I have Experience of more than 1 Year in Cyber security analyst.
-                                                 			
-          </p>
-
-          <p>
-            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
-            Moreover, I
-            add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
-            across your
-            message and identity in the most creative way.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What i'm doing</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg
-                " alt="design icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web design</h4>
-
-                <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web development</h4>
-
-                <p class="service-item-text">
-                  High-quality development of sites at the professional level.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
-
-                <p class="service-item-text">
-                  Professional development of applications for Android.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
-
-                <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Testimonials</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Harshit Tiwari" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Harshit Tiwari</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-				  One of my best friend and classmate.
-				  Have great Knowledge of Web Development and Software Development.
-				  Companion in my software development.
-                   <a href="https://crown003.github.io/Crown/" style="color:green;" target="_blank"><h3>Website Link</h3><img src="./assets/images/icon-web.ico"></a>
-				   <a href="https://github.com/Crown003" style="color:grey;" target="_blank"><h3>Github Link<ion-icon name="logo-github"></ion-icon></h3></a>
-                  </p>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <div class="hero-label">🚀 Available for Freelance</div>
+                    <h1>Hi, I'm <span class="gradient-text">Nikhil Kumar Maurya</span></h1>
+                    <p>Full-Stack Web Developer & CSE (AI) Student. I build scalable applications using React, Next.js, and Node.js, with a unique focus on bridging hardware and software to deliver automated business solutions.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                        <a href="https://github.com/NIKHILmaurya217" target="_blank" class="btn btn-secondary">View GitHub</a>
+                    </div>
                 </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="Kaushlendra Pratap Singh" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Kaushlendra Pratap Singh</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-				  One of my best friend and classmate.
-				  Have basic knowledge of programming languages.
-				  Fresher and begginer in software development.
-                    
-                  </p>
+                <div class="hero-image">
+                    <div class="avatar-container">
+                        <img src="assets/images/my-avatar.png" alt="Nikhil Kumar Maurya" class="avatar">
+                        <div class="avatar-glow"></div>
+                    </div>
                 </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="./assets/images/avatar-1.png" alt="Testimonials" width="80" data-modal-img>
-              </figure>
-
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
             </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Nikhil</h4>
-
-              <time datetime="2021-06-14">14 Feb, 2023</time>
-
-              <div data-modal-text>
-                <p>
-                 
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
         </div>
+    </section>
 
-
-        <!--
-          - clients
-        -->
-
-        <!--<section class="clients">
-
-          <h3 class="h3 clients-title">Clients</h3>
-
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="#">
-			   <p style="color:red">SERVICES NOT STARTED YET.
-			   </p>
-              </a>
-            </li>
-
-          </ul>
-
-        </section>-->
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">What I Do</div>
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-subtitle">A comprehensive toolkit for building modern web applications and embedded systems</p>
             </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Saraswati Vidya Mandir</h4>
-
-              <span>2015-2023</span>
-
-              <p class="timeline-text">
-                
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Web development</h4>
-
-              <span>Started since 2021</span>
-
-              <p class="timeline-text">
-                Self study
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Software Developer</h4>
-
-              <span>2021 — Present</span>
-
-              <p class="timeline-text">
-                Currently working on python language. 
-				Have basic and intermediate knowledge of python language.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Web Developer</h4>
-
-              <span>2021 - 2022</span>
-
-              <p class="timeline-text">
-                Started since 2021. 
-				Have knowledge of HTML and CSS.
-				Have basic knowledge in Java script.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Web design</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Networking</h5>
-                <data value="40">40%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 40%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Programming</h5>
-                <data value="30">30%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 30%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Database Management</h5>
-                <data value="30">30%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 30%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <!--<ul class="filter-list">
-		
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web design</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web development</button>
-            </li>
-
-          </ul>-->
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-select-value style="color:white;">Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <!--<ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web design</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web development</button>
-              </li>
-
-            </ul>-->
-
-          </div>
-
-          <ul class="project-list">
-
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <center><img src="./assets/images/fire.jpg" alt="FIRE IMAGE" loading="fast" width="325px" height=auto max-width="400px" margin=auto></center>
-                </figure>
-
-                <center><h3 class="project-title">FIRE IMAGE</h3></center>
-
-                <center><p class="project-category">PHOTOGRAPHY</p></center>
-		<div class="testimonials-text" data-testimonials-text>
-                  <center><p margin=auto style="font-size:75%;">
-			A Girl face with a mask appeared in fire.<br> 
-			Got this perfect shot after 278 attempts.<br>
-			  # No editing used.
-                    
-                  </p></center>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">C++</span>
+                    </div>
                 </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox style="bolder:bold; border-color:red; border-width:3px;">
-          <figure>
-           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.497075987016!2d82.02615841347563!3d26.245526094813727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399a6303bc0ac40b%3A0xcdaa6d8ffdb2ddb9!2sDihwa!5e0!3m2!1sen!2sin!4v1676396413032!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="fast" referrerpolicy="no-referrer-when-downgrade"></iframe>
-		  </figure>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form method="POST" action="https://script.google.com/macros/s/AKfycbwF9JXLI3eiTq02WSRbsIQv7VW8tPTkH34b9AFUUY5nZXUb_X0HkevtIei8FfzOJfpTcw/exec" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <h3>Frontend Development</h3>
+                    <div class="skill-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Tailwind CSS</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🔧</div>
+                    <h3>Backend & Mobile</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Flutter</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <h3>Tools & Cloud</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Git</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">Figma</span>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Journey</div>
+                <h2 class="section-title">Experience & Education</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024 – 2028</div>
+                        <h3>B.Tech in CSE (AI)</h3>
+                        <h4>ABES Institute of Technology, Ghaziabad</h4>
+                        <p>Pursuing Computer Science & Engineering with specialization in Artificial Intelligence</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jan 2024 – Dec 2025</div>
+                        <h3>Frontend Web Developer</h3>
+                        <h4>Freelance</h4>
+                        <p>Built responsive, performance-optimized websites using Next.js. Implemented clean UI, structured routing, and SEO-friendly pages.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Dec 2023 – Sep 2024</div>
+                        <h3>Graphic Designer</h3>
+                        <h4>Freelance (Part-time)</h4>
+                        <p>Designed digital graphics, sponsorship packs, and marketing creatives. Delivered brand-aligned, client-ready designs within deadlines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <button class="form-btn" type="submit" data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
+    <!-- Hackathons Section -->
+    <section id="hackathons">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Achievements</div>
+                <h2 class="section-title">Hackathons & Competitions</h2>
+                <p class="section-subtitle">Showcasing innovation through competitive coding and design challenges</p>
+            </div>
+            <div class="hackathons-grid">
+                <div class="hackathon-card">
+                    <span class="hackathon-badge">🥈 Runner-up</span>
+                    <h3>CSS Carnival 2024</h3>
+                    <p>Secured runner-up position by facilitating team collaboration to build a high-fidelity landing page using Vanilla CSS at ABESIT.</p>
+                </div>
+                <div class="hackathon-card">
+                    <span class="hackathon-badge">🏆 Participant</span>
+                    <h3>SIH 2025 Internal Hackathon</h3>
+                    <p>Engineered responsive and functional web application with real-time data sync using Firebase as Frontend & Backend Developer.</p>
+                </div>
+                <div class="hackathon-card">
+                    <span class="hackathon-badge">💡 Innovator</span>
+                    <h3>Google Solution Challenge</h3>
+                    <p>Showcased innovation by contributing to impactful, community-focused solutions through Hack2Skill & GDG On Campus.</p>
+                </div>
+                <div class="hackathon-card">
+                    <span class="hackathon-badge">🥈 2nd Place</span>
+                    <h3>Creative Canvas 2024</h3>
+                    <p>Secured 2nd position in Figma poster making competition by demonstrating advanced graphics designing skills at ABESIT.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-          </form>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Let's Connect</div>
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Open to freelance projects and collaboration opportunities</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <a href="/cdn-cgi/l/email-protection#a6c8cfcdcecfcacbc7d3d4dfc7949791e6c1cbc7cfca88c5c9cb"><span class="__cf_email__" data-cfemail="98f6f1f3f0f1f4f5f9edeae1f9aaa9afd8fff5f9f1f4b6fbf7f5">[email&#160;protected]</span></a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <a href="tel:+919005423266">+91 9005423266</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <h3>LinkedIn</h3>
+                    <a href="https://linkedin.com/in/nikhil217" target="_blank">linkedin.com/in/nikhil217</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🐙</div>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/NIKHILmaurya217" target="_blank">github.com/NIKHILmaurya217</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        </section>
-
-      </article>
-
-    </div>
-
-  </main>
-  <script src="Google Sheets.js"></script>
-
-
-
-
-
-
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  
-
-</body>
-
-</html>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Nikhil Kumar Maurya. Built with passion and code.</p>
+            <div class="social-links">
+                <a href="https://github.com/NIKHILmaurya217" target="_blank" title="GitHub" aria-label="GitHub">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/nikhil217" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          
