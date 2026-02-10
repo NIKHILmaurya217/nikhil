@@ -1,6 +1,4 @@
-// ==========================================
 // Smooth Scrolling for Navigation Links
-// ==========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -15,9 +13,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ==========================================
 // Scroll Reveal Animation
-// ==========================================
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -40,9 +36,8 @@ document.querySelectorAll('.skill-card, .timeline-item, .hackathon-card, .contac
     observer.observe(el);
 });
 
-// ==========================================
+
 // Active Navigation Link
-// ==========================================
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
@@ -67,9 +62,7 @@ function highlightNavigation() {
 
 window.addEventListener('scroll', highlightNavigation);
 
-// ==========================================
 // Header Scroll Effect
-// ==========================================
 const header = document.querySelector('header');
 let lastScroll = 0;
 
@@ -85,9 +78,7 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// ==========================================
 // Typing Effect for Hero Section (Optional)
-// ==========================================
 function typeWriter(element, text, speed = 50) {
     let i = 0;
     element.textContent = '';
@@ -104,25 +95,22 @@ function typeWriter(element, text, speed = 50) {
 }
 
 // Uncomment to enable typing effect on load
-// window.addEventListener('load', () => {
-//     const heroTitle = document.querySelector('.hero h1 .gradient-text');
-//     if (heroTitle) {
-//         const originalText = heroTitle.textContent;
-//         typeWriter(heroTitle, originalText, 100);
-//     }
-// });
+window.addEventListener('load', () => {
+  const heroTitle = document.querySelector('.hero h1 .gradient-text');
+     if (heroTitle) {
+         const originalText = heroTitle.textContent;
+         typeWriter(heroTitle, originalText, 100);
+     }
+ });
 
-// ==========================================
-// Form Validation (if contact form is added)
-// ==========================================
+// Form Validation 
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 }
 
-// ==========================================
-// Lazy Loading Images (if images are added)
-// ==========================================
+
+// Lazy Loading Images 
 document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = document.querySelectorAll('img[data-src]');
     
@@ -140,9 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lazyImages.forEach(img => imageObserver.observe(img));
 });
 
-// ==========================================
-// Mobile Menu Toggle (if hamburger menu is added)
-// ==========================================
+
+// Mobile Menu Toggle 
+
 const createMobileMenu = () => {
     const nav = document.querySelector('nav ul');
     const menuButton = document.createElement('button');
@@ -161,11 +149,11 @@ const createMobileMenu = () => {
 };
 
 // Uncomment to enable mobile menu
-// window.addEventListener('DOMContentLoaded', createMobileMenu);
+ window.addEventListener('DOMContentLoaded', createMobileMenu);
 
-// ==========================================
+
 // Parallax Effect for Background Orbs
-// ==========================================
+
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const orb1 = document.querySelector('.orb-1');
@@ -175,16 +163,15 @@ window.addEventListener('scroll', () => {
     if (orb2) orb2.style.transform = `translate(${-scrolled * 0.1}px, ${-scrolled * 0.1}px)`;
 });
 
-// ==========================================
 // Console Easter Egg
-// ==========================================
+
 console.log('%c👋 Hey there!', 'font-size: 20px; font-weight: bold; color: #00ff88;');
 console.log('%cLooking for something? Feel free to reach out!', 'font-size: 14px; color: #64748b;');
 console.log('%c📧 nikhilmaurya217@gmail.com', 'font-size: 14px; color: #0047ff;');
 
-// ==========================================
+
 // Performance Monitoring
-// ==========================================
+
 if ('performance' in window) {
     window.addEventListener('load', () => {
         const perfData = performance.timing;
