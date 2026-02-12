@@ -1,6 +1,13 @@
 /* ==========================================
    CSS Variables
    ========================================== */
+/* --- Add to the very top of your CSS --- */
+html {
+    scroll-behavior: smooth;
+    /* This ensures sections stop exactly below your sticky header */
+    scroll-padding-top: 100px; 
+}
+
 :root {
     --primary: #00ff88;
     --secondary: #0047ff;
@@ -29,6 +36,11 @@ body {
     line-height: 1.6;
 }
 
+body.is-scrolling .grid-background,
+body.is-scrolling .orb {
+    animation-play-state: paused;
+}
+
 /* ==========================================
    Animated Background
    ========================================== */
@@ -45,6 +57,8 @@ body {
     animation: gridMove 20s linear infinite;
     pointer-events: none;
     z-index: 0;
+    will-change: transform; /* Moves to GPU */
+    backface-visibility: hidden;
 }
 
 @keyframes gridMove {
@@ -60,6 +74,7 @@ body {
     opacity: 0.4;
     pointer-events: none;
     z-index: 0;
+    will-change: transform; /* Critical for smooth parallax */
 }
 
 .orb-1 {
@@ -107,6 +122,7 @@ header {
     backdrop-filter: blur(10px);
     z-index: 100;
     border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    transform: translateZ(0);
 }
 
 nav {
