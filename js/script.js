@@ -2,7 +2,7 @@
 // Mobile Full-Screen Nav Panel
 // ==========================================
 const hamburger = document.getElementById('hamburger');
-const navMenu   = document.getElementById('nav-menu');
+const navMenu = document.getElementById('nav-menu');
 
 // Build the mobile menu panel once, append to body
 // This avoids ALL z-index / stacking context issues with fixed headers
@@ -80,18 +80,20 @@ let savedScrollY = 0;
 function openMenu() {
     buildMobilePanel();
 
+    // Always show header when menu is open
+    header.classList.remove('header-hidden');
+
     // Lock scroll: save position, fix body
     savedScrollY = window.scrollY;
-    document.body.style.position  = 'fixed';
-    document.body.style.top       = `-${savedScrollY}px`;
-    document.body.style.width     = '100%';
-    document.body.style.overflowY = 'scroll'; // keep scrollbar space
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflowY = 'scroll';
 
     document.body.classList.add('menu-open');
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
 
-    // Focus trap — move focus into panel
     setTimeout(() => {
         const firstLink = mobilePanel.querySelector('a, button');
         if (firstLink) firstLink.focus();
@@ -104,9 +106,9 @@ function closeMenu() {
     hamburger.setAttribute('aria-expanded', 'false');
 
     // Restore scroll position
-    document.body.style.position  = '';
-    document.body.style.top       = '';
-    document.body.style.width     = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
     document.body.style.overflowY = '';
     window.scrollTo(0, savedScrollY);
 
@@ -149,25 +151,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
-// Header shadow on scroll (throttled)
+// Header hide on scroll-down, show on scroll-up
 // ==========================================
 const header = document.querySelector('header');
-const orb1   = document.querySelector('.orb-1');
-const orb2   = document.querySelector('.orb-2');
-let ticking  = false;
+const orb1 = document.querySelector('.orb-1');
+const orb2 = document.querySelector('.orb-2');
+let ticking = false;
+let lastScrollY = 0;
+const SCROLL_THRESHOLD = 80; // px from top before hide behaviour kicks in
 
 window.addEventListener('scroll', () => {
     if (!ticking) {
         window.requestAnimationFrame(() => {
-            const s = window.pageYOffset;
+            const currentY = window.pageYOffset;
+            const scrollingDown = currentY > lastScrollY;
 
-            header.style.boxShadow = s > 50
+            // Only hide when past the threshold to avoid flickering at top
+            if (currentY > SCROLL_THRESHOLD) {
+                if (scrollingDown) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+            } else {
+                // Always show header when near the top of the page
+                header.classList.remove('header-hidden');
+            }
+
+            // Header shadow
+            header.style.boxShadow = currentY > 50
                 ? '0 4px 24px rgba(0,0,0,0.4)'
                 : 'none';
 
-            if (orb1) orb1.style.transform = `translate(${s * 0.04}px, ${s * 0.04}px)`;
-            if (orb2) orb2.style.transform = `translate(${-s * 0.04}px, ${-s * 0.04}px)`;
+            // Subtle orb parallax
+            if (orb1) orb1.style.transform = `translate(${currentY * 0.04}px, ${currentY * 0.04}px)`;
+            if (orb2) orb2.style.transform = `translate(${-currentY * 0.04}px, ${-currentY * 0.04}px)`;
 
+            lastScrollY = currentY;
             ticking = false;
         });
         ticking = true;
@@ -214,7 +234,7 @@ sections.forEach(section => sectionObserver.observe(section));
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity   = '1';
+            entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
             revealObserver.unobserve(entry.target);
         }
@@ -223,9 +243,33 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.skill-card, .timeline-item, .hackathon-card, .contact-item')
     .forEach(el => {
-        el.style.opacity   = '0';
+        el.style.opacity = '0';
         el.style.transform = 'translateY(28px)';
         const idx = Array.from(el.parentElement.children).indexOf(el);
         el.style.transition = `opacity 0.5s ease-out ${idx * 0.08}s, transform 0.5s ease-out ${idx * 0.08}s`;
         revealObserver.observe(el);
     });
+
+// Back to Top Button
+// Use DOMContentLoaded to guarantee the button exists before we touch it
+document.addEventListener('DOMContentLoaded', () => {
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    if (!backToTopBtn) return; // safety guard
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const headerEl = document.querySelector('header'); // re-select locally
+    if (headerEl) headerEl.classList.remove('header-hidden');
+    lastScrollY = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+});
