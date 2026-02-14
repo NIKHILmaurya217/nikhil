@@ -3,7 +3,7 @@
    ========================================== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 44px;
 }
 
 :root {
@@ -236,19 +236,42 @@ nav a.active::after {
 }
 
 /* ==========================================
-   Mobile Nav Overlay (backdrop)
+   Mobile Nav — Full-Screen Overlay
+   (immune to zoom/viewport scaling issues)
    ========================================== */
 .nav-overlay {
+    /* Hidden by default on all screen sizes */
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    /* Below nav drawer (150), below header (200) */
-    z-index: 140;
 }
 
-.nav-overlay.active {
-    display: block;
+/* The full-screen mobile menu panel — hidden off-screen by default */
+#nav-menu.mobile-nav {
+    /* Styles applied only when JS adds .mobile-nav class on mobile */
+}
+
+/* When body has menu-open class, the full nav overlay shows */
+body.menu-open .mobile-menu-panel {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+
+.mobile-menu-panel {
+    position: fixed;
+    inset: 0;
+    /* Sits above everything */
+    z-index: 300;
+    background: rgba(5, 8, 20, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* ==========================================
@@ -847,64 +870,146 @@ footer p {
     }
 }
 
-/* --- Mobile (≤ 768px): show hamburger, slide-in nav --- */
+/* --- Mobile (≤ 768px): full-screen overlay nav --- */
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
     }
 
-    /* Slide-in drawer */
+    /* Hide the desktop inline nav list */
     nav ul {
+        /* Keep it in DOM but hidden — JS will manage the mobile panel */
+        display: none;
+    }
+
+    /* Full-screen panel (created by JS, appended to body) */
+    .mobile-menu-panel {
+        display: flex;
+    }
+
+    /* Nav links inside the panel */
+    .mobile-menu-panel ul {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 0;
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 72%;
-        max-width: 300px;
-        /* dvh = dynamic viewport height, accounts for mobile browser chrome */
-        height: 100dvh;
-        background: rgba(5, 8, 20, 0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-left: 1px solid rgba(0, 255, 136, 0.15);
-        /* Enough top padding to clear the sticky header */
-        padding: 5rem 1.75rem 2rem;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        /* KEY: 150 puts drawer BELOW header (200) but above page content */
-        z-index: 150;
         list-style: none;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        max-width: 320px;
+        padding: 0 2rem;
     }
 
-    nav ul.nav-open {
-        transform: translateX(0);
+    .mobile-menu-panel ul li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        text-align: center;
     }
 
-    nav ul li {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    .mobile-menu-panel ul li:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
     }
 
-    nav ul li:last-child {
-        border-bottom: none;
-    }
-
-    nav ul li a {
+    .mobile-menu-panel ul li a {
         display: block;
-        padding: 1rem 0;
-        font-size: 1.05rem;
+        padding: 1.25rem 0;
+        font-size: 1.3rem;
+        font-family: 'Syne', sans-serif;
+        font-weight: 600;
         color: var(--light);
-        transition: color 0.3s, padding-left 0.3s;
-        letter-spacing: 0.03em;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: color 0.25s;
+        /* Each link slides up on open — set by JS */
+        transform: translateY(16px);
+        opacity: 0;
+        transition: color 0.25s, transform 0.3s ease, opacity 0.3s ease;
     }
 
-    nav ul li a:hover,
-    nav ul li a.active {
+    /* Animate links in when menu is open */
+    body.menu-open .mobile-menu-panel ul li a {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /* Stagger each link */
+    body.menu-open .mobile-menu-panel ul li:nth-child(1) a { transition-delay: 0.05s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(2) a { transition-delay: 0.10s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(3) a { transition-delay: 0.15s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(4) a { transition-delay: 0.20s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(5) a { transition-delay: 0.25s; }
+
+    .mobile-menu-panel ul li a:hover,
+    .mobile-menu-panel ul li a.active {
         color: var(--primary);
-        padding-left: 0.5rem;
+    }
+
+    /* Close button inside the panel */
+    .mobile-menu-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: transparent;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        border-radius: 8px;
+        color: var(--light);
+        font-size: 1.5rem;
+        line-height: 1;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.3s, color 0.3s;
+    }
+
+    .mobile-menu-close:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Social links row at bottom of panel */
+    .mobile-menu-socials {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 3rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s;
+    }
+
+    body.menu-open .mobile-menu-socials {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mobile-menu-socials a {
+        color: var(--gray);
+        transition: color 0.3s;
+        display: flex;
+    }
+
+    .mobile-menu-socials a:hover {
+        color: var(--primary);
+    }
+
+    /* Available badge inside panel */
+    .mobile-menu-badge {
+        margin-bottom: 2rem;
+        font-size: 0.78rem;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        background: rgba(0, 255, 136, 0.07);
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease 0.0s, transform 0.3s ease 0.0s;
+    }
+
+    body.menu-open .mobile-menu-badge {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1002,7 +1107,1121 @@ footer p {
         height: 170px;
     }
 
+    .mobile-menu-panel ul {
+        max-width: 280px;
+    }
+}/* ==========================================
+   CSS Variables
+   ========================================== */
+html {
+    scroll-behavior: smooth;
+    /* Header is ~64px tall (1.25rem padding × 2 + logo line-height).
+       4px extra so the section title isn't flush against the header edge. */
+    scroll-padding-top: 24px;
+}
+
+:root {
+    --primary: #00ff88;
+    --secondary: #0047ff;
+    --dark: #0a0e27;
+    --darker: #050814;
+    --light: #f0f4f8;
+    --gray: #64748b;
+    --accent: #ff006e;
+    --glow: rgba(0, 255, 136, 0.3);
+}
+
+/* ==========================================
+   Reset & Base Styles
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--darker);
+    color: var(--light);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   Animated Background
+   ========================================== */
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary);
+    top: -100px;
+    right: -100px;
+    animation: floatOrb 15s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--secondary);
+    bottom: -50px;
+    left: -50px;
+    animation: floatOrb 20s ease-in-out infinite reverse;
+}
+
+@keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 30px) scale(1.1); }
+}
+
+/* ==========================================
+   Container
+   ========================================== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   Header & Navigation
+   ========================================== */
+header {
+    padding: 1.25rem 0;
+    position: sticky;
+    top: 0;
+    background: rgba(10, 14, 39, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* KEY FIX: header z-index must be HIGHER than the nav drawer (150)
+       and the overlay (140) so hamburger stays clickable */
+    z-index: 200;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* FIX: isolate nav's stacking context so children z-indices work correctly */
+    position: relative;
+    z-index: auto;
+}
+
+.logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    position: relative;
+    z-index: 201;
+}
+
+.logo::before {
+    content: '>';
+    margin-right: 0.5rem;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Desktop nav list */
+nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+nav a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--primary);
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+/* ==========================================
+   Hamburger Button
+   ========================================== */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0.5rem 0.6rem;
+    /* KEY FIX: z-index above the nav drawer so button stays tappable */
+    z-index: 201;
+    position: relative;
+    transition: border-color 0.3s;
+}
+
+.hamburger:hover {
+    border-color: var(--primary);
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--light);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Animate spans into X when open */
+.hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--primary);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--primary);
+}
+
+/* ==========================================
+   Mobile Nav — Full-Screen Overlay
+   (immune to zoom/viewport scaling issues)
+   ========================================== */
+.nav-overlay {
+    /* Hidden by default on all screen sizes */
+    display: none;
+}
+
+/* The full-screen mobile menu panel — hidden off-screen by default */
+#nav-menu.mobile-nav {
+    /* Styles applied only when JS adds .mobile-nav class on mobile */
+}
+
+/* When body has menu-open class, the full nav overlay shows */
+body.menu-open .mobile-menu-panel {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+
+.mobile-menu-panel {
+    position: fixed;
+    inset: 0;
+    /* Sits above everything */
+    z-index: 300;
+    background: rgba(5, 8, 20, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.hero-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+}
+
+.hero-content {
+    max-width: 600px;
+    flex: 1;
+    min-width: 0; /* FIX: prevent flex blowout on small screens */
+}
+
+.hero-image {
+    flex: 0 0 auto;
+}
+
+.avatar-container {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    animation: slideInRight 0.8s ease-out 0.4s both;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+    border: 4px solid var(--primary);
+    box-shadow: 
+        0 0 30px rgba(0, 255, 136, 0.4),
+        0 0 60px rgba(0, 255, 136, 0.2),
+        0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 71, 255, 0.1));
+}
+
+.avatar-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 115%;
+    height: 115%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 255, 136, 0.3) 0%,
+        rgba(0, 255, 136, 0.15) 30%,
+        rgba(0, 71, 255, 0.1) 60%,
+        transparent 80%
+    );
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 1;
+    filter: blur(20px);
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.6; 
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.05); 
+        opacity: 1; 
+    }
+}
+
+.avatar-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.avatar-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border-radius: 50%;
+    border: 1px solid var(--primary);
+    opacity: 0.2;
+    animation: rotateRing 20s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotateRing {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hero-label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    animation: slideInUp 0.8s ease-out 0.4s both;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: slideInUp 0.8s ease-out 0.6s both;
+}
+
+.btn {
+    padding: 0.875rem 1.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--darker);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px var(--glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px var(--glow);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--light);
+    border: 2px solid rgba(240, 244, 248, 0.35);
+}
+
+.btn-secondary:hover {
+    background: var(--light);
+    color: var(--darker);
+    border-color: var(--light);
+    transform: translateY(-3px);
+}
+
+/* ==========================================
+   Section Styles
+   ========================================== */
+section {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-label {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    color: var(--gray);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   Skills Section
+   ========================================== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.skill-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.15);
+}
+
+.skill-card:hover::before {
+    transform: scaleX(1);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.skill-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--light);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    padding: 0.35rem 0.75rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: var(--primary);
+}
+
+/* ==========================================
+   Experience Timeline
+   ========================================== */
+.timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+}
+
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    width: calc(50% - 2rem);
+    position: relative;
+    transition: border-color 0.3s;
+}
+
+.timeline-content:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 2rem;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border: 4px solid var(--darker);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--glow);
+    z-index: 1;
+}
+
+.timeline-date {
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.timeline-content h4 {
+    color: var(--gray);
+    font-size: 0.95rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-content p {
+    color: var(--gray);
+    line-height: 1.7;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   Hackathons Section
+   ========================================== */
+.hackathons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.hackathon-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.hackathon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+}
+
+.hackathon-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(255, 0, 110, 0.15);
+}
+
+.hackathon-card:hover::before {
+    transform: scaleY(1);
+}
+
+.hackathon-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 0, 110, 0.15);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.hackathon-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.hackathon-card p {
+    color: var(--gray);
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   Contact Section
+   ========================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.contact-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.15);
+}
+
+.contact-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+}
+
+.contact-item h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-item a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.3s;
+    word-break: break-all;
+}
+
+.contact-item a:hover {
+    color: var(--primary);
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+footer {
+    text-align: center;
+    padding: 3rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.social-links a {
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+    opacity: 1;
+}
+
+/* ==========================================
+   RESPONSIVE BREAKPOINTS
+   ORDER MATTERS: largest first, smallest last
+   ========================================== */
+
+/* --- Tablet (≤ 968px) --- */
+@media (max-width: 968px) {
+    .hero-wrapper {
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .hero-image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .avatar-container {
+        width: 260px;
+        height: 260px;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    /* Collapse timeline to single column */
+    .timeline::before {
+        left: 20px;
+        transform: none;
+    }
+
+    .timeline-content {
+        width: calc(100% - 56px);
+        margin-left: 56px !important;
+    }
+
+    .timeline-dot {
+        left: 20px;
+        transform: none;
+    }
+}
+
+/* --- Mobile (≤ 768px): full-screen overlay nav --- */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    /* Hide the desktop inline nav list */
     nav ul {
-        width: 88%;
+        /* Keep it in DOM but hidden — JS will manage the mobile panel */
+        display: none;
+    }
+
+    /* Full-screen panel (created by JS, appended to body) */
+    .mobile-menu-panel {
+        display: flex;
+    }
+
+    /* Nav links inside the panel */
+    .mobile-menu-panel ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        list-style: none;
+        width: 100%;
+        max-width: 320px;
+        padding: 0 2rem;
+    }
+
+    .mobile-menu-panel ul li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        text-align: center;
+    }
+
+    .mobile-menu-panel ul li:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .mobile-menu-panel ul li a {
+        display: block;
+        padding: 1.25rem 0;
+        font-size: 1.3rem;
+        font-family: 'Syne', sans-serif;
+        font-weight: 600;
+        color: var(--light);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: color 0.25s;
+        /* Each link slides up on open — set by JS */
+        transform: translateY(16px);
+        opacity: 0;
+        transition: color 0.25s, transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Animate links in when menu is open */
+    body.menu-open .mobile-menu-panel ul li a {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /* Stagger each link */
+    body.menu-open .mobile-menu-panel ul li:nth-child(1) a { transition-delay: 0.05s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(2) a { transition-delay: 0.10s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(3) a { transition-delay: 0.15s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(4) a { transition-delay: 0.20s; }
+    body.menu-open .mobile-menu-panel ul li:nth-child(5) a { transition-delay: 0.25s; }
+
+    .mobile-menu-panel ul li a:hover,
+    .mobile-menu-panel ul li a.active {
+        color: var(--primary);
+    }
+
+    /* Close button inside the panel */
+    .mobile-menu-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: transparent;
+        border: 1px solid rgba(0, 255, 136, 0.25);
+        border-radius: 8px;
+        color: var(--light);
+        font-size: 1.5rem;
+        line-height: 1;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.3s, color 0.3s;
+    }
+
+    .mobile-menu-close:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Social links row at bottom of panel */
+    .mobile-menu-socials {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 3rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s;
+    }
+
+    body.menu-open .mobile-menu-socials {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mobile-menu-socials a {
+        color: var(--gray);
+        transition: color 0.3s;
+        display: flex;
+    }
+
+    .mobile-menu-socials a:hover {
+        color: var(--primary);
+    }
+
+    /* Available badge inside panel */
+    .mobile-menu-badge {
+        margin-bottom: 2rem;
+        font-size: 0.78rem;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        background: rgba(0, 255, 136, 0.07);
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease 0.0s, transform 0.3s ease 0.0s;
+    }
+
+    body.menu-open .mobile-menu-badge {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Small mobile (≤ 640px) --- */
+@media (max-width: 640px) {
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    section {
+        padding: 4rem 0;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 3rem 0 4rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.75rem, 8vw, 2.4rem);
+    }
+
+    .hero p {
+        font-size: 0.88rem;
+    }
+
+    .avatar-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .skills-grid,
+    .hackathons-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .skill-card,
+    .hackathon-card,
+    .contact-item {
+        padding: 1.5rem;
+    }
+
+    /* Timeline - tighter on small screens */
+    .timeline::before {
+        left: 12px;
+    }
+
+    .timeline-content {
+        width: calc(100% - 40px);
+        margin-left: 40px !important;
+        padding: 1.25rem;
+    }
+
+    .timeline-dot {
+        left: 12px;
+        width: 14px;
+        height: 14px;
+    }
+
+    footer {
+        padding: 2rem 0;
+        font-size: 0.8rem;
+    }
+}
+
+/* --- Very small (≤ 380px) --- */
+@media (max-width: 380px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .avatar-container {
+        width: 170px;
+        height: 170px;
+    }
+
+    .mobile-menu-panel ul {
+        max-width: 280px;
     }
 }
