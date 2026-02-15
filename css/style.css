@@ -125,13 +125,11 @@ header {
     background: rgba(10, 14, 39, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* KEY FIX: header z-index must be HIGHER than the nav drawer (150)
-       and the overlay (140) so hamburger stays clickable */
     z-index: 200;
     border-bottom: 1px solid rgba(0, 255, 136, 0.1);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     header.header-hidden {
-    transform: translateY(-100%);  /* slides fully off screen upward */
+    transform: translateY(-100%);  
 }
 }
 
@@ -139,7 +137,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* FIX: isolate nav's stacking context so children z-indices work correctly */
     position: relative;
     z-index: auto;
 }
@@ -223,7 +220,6 @@ nav a.active::after {
     border-radius: 8px;
     cursor: pointer;
     padding: 0.5rem 0.6rem;
-    /* KEY FIX: z-index above the nav drawer so button stays tappable */
     z-index: 201;
     position: relative;
     transition: border-color 0.3s;
@@ -943,7 +939,6 @@ footer p {
 
     /* Hide the desktop inline nav list */
     nav ul {
-        /* Keep it in DOM but hidden — JS will manage the mobile panel */
         display: none;
     }
 
@@ -1196,8 +1191,6 @@ footer p {
    ========================================== */
 html {
     scroll-behavior: smooth;
-    /* Header is ~64px tall (1.25rem padding × 2 + logo line-height).
-       4px extra so the section title isn't flush against the header edge. */
     scroll-padding-top: 24px;
 }
 
@@ -1320,8 +1313,6 @@ header {
     background: rgba(10, 14, 39, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* KEY FIX: header z-index must be HIGHER than the nav drawer (150)
-       and the overlay (140) so hamburger stays clickable */
     z-index: 200;
     border-bottom: 1px solid rgba(0, 255, 136, 0.1);
 }
@@ -1330,7 +1321,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* FIX: isolate nav's stacking context so children z-indices work correctly */
     position: relative;
     z-index: auto;
 }
@@ -1414,7 +1404,6 @@ nav a.active::after {
     border-radius: 8px;
     cursor: pointer;
     padding: 0.5rem 0.6rem;
-    /* KEY FIX: z-index above the nav drawer so button stays tappable */
     z-index: 201;
     position: relative;
     transition: border-color 0.3s;
@@ -1452,7 +1441,6 @@ nav a.active::after {
 
 /* ==========================================
    Mobile Nav — Full-Screen Overlay
-   (immune to zoom/viewport scaling issues)
    ========================================== */
 .nav-overlay {
     /* Hidden by default on all screen sizes */
@@ -2135,7 +2123,6 @@ footer p {
 
     /* Hide the desktop inline nav list */
     nav ul {
-        /* Keep it in DOM but hidden — JS will manage the mobile panel */
         display: none;
     }
 
